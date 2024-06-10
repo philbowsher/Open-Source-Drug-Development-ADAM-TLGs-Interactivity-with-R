@@ -1,0 +1,22 @@
+---
+title: "Copilot Test"
+format: html
+---
+
+
+```{r}
+# load the important packages
+```
+
+```{r}
+# import data
+```
+
+```{r}
+# data cleaning
+```
+
+
+```{r}
+# start the analysis
+```

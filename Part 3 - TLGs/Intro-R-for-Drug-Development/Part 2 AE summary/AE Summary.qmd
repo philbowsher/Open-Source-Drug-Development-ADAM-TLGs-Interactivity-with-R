@@ -1,0 +1,138 @@
+# AE summary {#sec-aesummary}
+
+Following [ICH E3 guidance](https://database.ich.org/sites/default/files/E3_Guideline.pdf),
+we summarize number of participants that were included in each safety analysis in Section 12.2, Adverse Events (AEs).
+
+```{r}
+library(haven) # Read SAS data
+library(dplyr) # Manipulate data
+library(tidyr) # Manipulate data
+# library(r2rtf) # Reporting in RTF format
+```
+
+
+The data used to summarize AE information is in `adsl` and `adae` datasets.
+
+```{r}
+adsl <- read_sas("https://github.com/elong0527/r4csr/raw/main/data-adam/adsl.sas7bdat")
+adae <- read_sas("https://github.com/elong0527/r4csr/raw/main/data-adam/adae.sas7bdat")
+```
+
+We first summarize participants in population by treatment arm.
+
+```{r}
+pop <- adsl %>%
+  filter(SAFFL == "Y") %>%
+  rename(TRTAN = TRT01AN) %>%
+  count(TRTAN, name = "tot")
+
+pop
+```
+
+We transform the data to simplify the analysis of each required AE criteria of interest.
+
+- With one or more adverse events
+- With drug-related adverse events
+- With serious adverse events
+- With serious drug-related adverse events
+- Who died
+
+```{r}
+tidy_ae <- adae %>%
+  mutate(
+    all = SAFFL == "Y",
+    drug = AEREL %in% c("POSSIBLE", "PROBABLE"),
+    ser = AESER == "Y",
+    drug_ser = drug & ser,
+    die = AEOUT == "FATAL"
+  ) %>%
+  select(USUBJID, TRTAN, all, drug, ser, drug_ser, die) %>%
+  pivot_longer(cols = c(all, drug, ser, drug_ser, die))
+
+tidy_ae %>% head(4)
+```
+
+We summarize the number and percentage of participants who meet each AE criteria.
+
+```{r}
+fmt_num <- function(x, digits, width = digits + 4) {
+  formatC(
+    x,
+    digits = digits,
+    format = "f",
+    width = width
+  )
+}
+```
+
+```{r}
+ana <- tidy_ae %>%
+  filter(value == TRUE) %>%
+  group_by(TRTAN, name) %>%
+  summarise(n = n_distinct(USUBJID)) %>%
+  left_join(pop, by = "TRTAN") %>%
+  mutate(
+    pct = fmt_num(n / tot * 100, digits = 1),
+    n = fmt_num(n, digits = 0),
+    pct = paste0("(", pct, ")")
+  )
+
+ana %>% head(4)
+```
+
+We prepare reporting-ready dataset for each AE group.
+
+```{r}
+t_ae <- ana %>%
+  pivot_wider(
+    id_cols = "name",
+    names_from = TRTAN,
+    values_from = c(n, pct),
+    values_fill = list(
+      n = "   0",
+      pct = "(  0.0)"
+    )
+  )
+
+t_ae <- t_ae %>%
+  mutate(name = factor(
+    name,
+    c("all", "drug", "ser", "drug_ser", "die"),
+    c(
+      "With one or more adverse events",
+      "With drug-related adverse events",
+      "With serious adverse events",
+      "With serious drug-related adverse events",
+      "Who died"
+    )
+  )) %>%
+  arrange(name)
+```
+
+We prepare reporting-ready dataset for the analysis population.
+
+```{r}
+t_pop <- pop %>%
+  mutate(
+    name = "Participants in population",
+    tot = fmt_num(tot, digits = 0)
+  ) %>%
+  pivot_wider(
+    id_cols = name,
+    names_from = TRTAN,
+    names_prefix = "n_",
+    values_from = tot
+  )
+
+t_pop
+```
+
+The final report data is saved in `tbl_ae_summary`.
+
+```{r}
+tbl_ae_summary <- bind_rows(t_pop, t_ae) %>%
+  select(name, ends_with("_0"), ends_with("_54"), ends_with("_81"))
+
+tbl_ae_summary
+```
+

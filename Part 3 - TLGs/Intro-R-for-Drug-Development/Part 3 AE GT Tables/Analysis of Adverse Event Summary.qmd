@@ -1,0 +1,60 @@
+---
+title: "Adverse Event Summary"
+format: html
+editor: visual
+---
+
+## Analysis of Adverse Event Summary
+
+
+```{r}
+gt_tbl <-
+  tbl_ae_summary %>%
+  gt(rowname_col = "name") %>%
+  tab_header(
+    title = "Analysis of Adverse Event Summary",
+    subtitle = "(Safety Analysis Population)"
+  ) %>%
+  cols_label(
+    starts_with("n") ~ "n",
+    starts_with("pct") ~ "(%)"
+  ) %>%
+  tab_spanner(
+    columns = ends_with("0"),
+    label = "Placebo"
+  ) %>%
+  tab_spanner(
+    columns = ends_with("54"),
+    label = "Xanomeline Low Dose"
+  ) %>%
+  tab_spanner(
+    columns = ends_with("81"),
+    label = "Xanomeline High Dose"
+  ) %>%
+  sub_missing(missing_text = "") %>%
+  cols_width(
+    stub() ~ px(300),
+    everything() ~ px(90)
+  ) %>%
+  tab_footnote(footnote = "Every subject is counted a single time for each applicable row and column.") %>%
+  tab_options(
+    page.orientation = "landscape",
+    page.numbering = TRUE,
+    page.header.use_tbl_headings = TRUE,
+    page.footer.use_tbl_notes = TRUE
+  )
+  
+gt_tbl
+```
+Writing the table to HTML can be done with `gtsave()`.
+
+```{r}
+gt_tbl %>% gtsave("Analysis of Adverse Event Summary.html")
+```
+
+Write the **gt** table to an RTF document.
+
+```{r}
+gt_tbl %>% gtsave("Analysis of Adverse Event Summary.rtf")
+```
+
