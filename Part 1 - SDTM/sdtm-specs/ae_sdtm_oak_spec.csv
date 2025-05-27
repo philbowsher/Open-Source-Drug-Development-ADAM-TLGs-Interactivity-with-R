@@ -1,0 +1,42 @@
+﻿study_number,raw_dataset,raw_dataset_label,raw_variable,raw_variable_label,raw_variable_ordinal,raw_variable_type,raw_data_format,study_specific,annotation_ordinal,mapping_is_dataset,annotation_text,target_sdtm_domain,target_sdtm_variable,target_sdtm_variable_role,target_sdtm_variable_codelist_code,target_sdtm_variable_controlled_terms_or_format,target_sdtm_variable_ordinal,origin,mapping_algorithm,entity_sub_algorithm,target_hardcoded_value,target_term_value,target_term_code,condition_ordinal,condition_group_ordinal,condition_add_raw_dat,condition_add_tgt_dat,condition_left_raw_dataset,condition_left_raw_variable,condition_left_sdtm_domain,condition_left_sdtm_variable,condition_operator,condition_right_text_value,condition_right_sdtm_domain,condition_right_sdtm_variable,condition_right_raw_dataset,condition_right_raw_variable,condition_next_logical_operator,merge_type,merge_left,merge_right,merge_condition,unduplicate_keys,groupby_keys,target_resource_raw_dataset,target_resource_raw_variable
+CDISCPILOT01,ae_raw,Adverse Events,,,,,,FALSE,1,TRUE,AE = 'Adverse Events',AE,DOMAIN,Identifier Variable,C66734,,2,Assigned,hardcode_ct,,,AE,C49562,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AETERM,What is the adverse event term? [en],1,Text,$8 ,FALSE,1,FALSE,AE.AETERM,AE,AETERM,Topic Variable,,,5,CRF,assign_no_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AEOUTCOME,What is the outcome of this adverse event?,2,Text,$200 ,FALSE,1,FALSE,AE.AEOUT,AE,AEOUT,Record Qualifier,C66768,(OUT),22,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESEV,What is the severity of the adverse event? Severity [en],3,Text,$8 ,FALSE,1,FALSE,AE.AESEV,AE,AESEV,Record Qualifier,C66769,(AESEV),18,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESER,Was the adverse event serious? [en],4,Text,$3 ,FALSE,1,FALSE,AE.AESER,AE,AESER,Record Qualifier,C66742,(NY),19,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AEREL,"Was this adverse event related to study treatment?
+Relationship to Study Treatment [en]
+End Date [en]",10,Text,$8 ,FALSE,1,FALSE,AE.AEREL,AE,AEREL,Record Qualifier,AEREL,,21,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AEACN,"What action was taken with study treatment?
+Action Taken with Study Treatment [en]",13,Text,$8 ,FALSE,1,FALSE,AE.AEACN,AE,AEACN,Record Qualifier,C66767,(ACN),20,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AESCAN,Does the event involve cancer?,13,Text,$3 ,FALSE,1,FALSE,AE.AESCAN,AE,AESCAN,Record Qualifier,C66742,(NY),23,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AESCNO,Was the adverse event associated with a congenital anomaly or birth defect? ,14,Text,$3 ,FALSE,1,FALSE,AE.AESCONG,AE,AESCONG,Record Qualifier,C66742,(NY),24,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AEDIS,Did the adverse event result in disability or permanent damage? ,14,Text,$3 ,FALSE,1,FALSE,AE.AESDISAB,AE,AESDISAB,Record Qualifier,C66742,(NY),25,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESDTH,Did the adverse event result in death? [en],15,Text,$3 ,FALSE,1,FALSE,AE.AESDTH,AE,AESDTH,Record Qualifier,C66742,(NY),26,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESHOSP,Did the adverse event result in initial or prolonged     hospitalization for the subject? [en],15,Text,$3 ,FALSE,1,FALSE,AE.AESHOSP,AE,AESHOSP,Record Qualifier,C66742,(NY),27,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESLIFE,"Was the adverse event life threatening? [en]
+Dose Form [en]",16,Text,$3 ,FALSE,1,FALSE,AE.AESLIFE,AE,AESLIFE,Record Qualifier,C66742,(NY),28,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AESOD,Did the adverse event occur with overdose? ,16,Text,$3 ,FALSE,1,FALSE,AESOD,AE,AESOD,Record Qualifier,C66742,(NY),29,CRF,assign_ct,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,AEDTCOL,Collection date,17,DateTime,mm/dd/yyyy,FALSE,1,FALSE,AE.AEDTC,AE,AEDTC,Timing Variable,,ISO 8601,30,CRF,assign_datetime,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AESTDAT,"What is the adverse event start date?
+Start Date [en]",17,DateTime,mm/dd/yyyy,FALSE,1,FALSE,AE.AESTDTC,AE,AESTDTC,Timing Variable,,ISO 8601,31,CRF,assign_datetime,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,ae_raw,Adverse Events,IT.AEENDAT,"What was the adverse event end date?
+End Date [en]
+Frequency [en]",18,DateTime,mm/dd/yyyy,FALSE,1,FALSE,AE.AEENDTC,AE,AEENDTC,Timing Variable,,ISO 8601,32,CRF,assign_datetime,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Unique identifier for a study.,AE,STUDYID,Identifier Variable,,,1,Protocol,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Set to USUBJID in SDTM.DM domain. ,AE,USUBJID,Identifier Variable,,,3,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Sequence Number given to ensure uniqueness of subject records within a domain. May be any valid number.,AE,AESEQ,Identifier Variable,,,4,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,"Taken directly from SDTM IG 3.1.2, p41: --DY = (date portion of --DTC) - (date portion of SDTM.DM.RFSTDTC) + 1 if --DTC is on or after SDTM.DM.RFSTDTC; --DY = (date portion of --DTC) - (date portion of SDTM.DM.RFSTDTC) if --DTC precedes SDTM.DM.RFSTDTC.",AE,AESTDY,Timing Variable,,,33,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,"Taken directly from SDTM IG 3.1.2, p41: --DY = (date portion of --DTC) - (date portion of SDTM.DM.RFSTDTC) + 1 if --DTC is on or after SDTM.DM.RFSTDTC; --DY = (date portion of --DTC) - (date portion of SDTM.DM.RFSTDTC) if --DTC precedes SDTM.DM.RFSTDTC.",AE,AEENDY,Timing Variable,,,34,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AELLT,Variable Qualifier,,MedDRA,6,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AELLTCD,Variable Qualifier,,MedDRA,7,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEDECOD,Variable Qualifier,,MedDRA,8,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEPTCD,Variable Qualifier,,MedDRA,9,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEHLT,Variable Qualifier,,MedDRA,10,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEHLTCD,Variable Qualifier,,MedDRA,11,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEHLGT,Variable Qualifier,,MedDRA,12,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEHLGTCD,Variable Qualifier,,MedDRA,13,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEBODSYS,Variable Qualifier,,MedDRA,14,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AEBDSYCD,Variable Qualifier,,MedDRA,15,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AESOC,Variable Qualifier,,MedDRA,16,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+CDISCPILOT01,,,,,,,,,,,Derived from MedDRA Dictionary,,AESOCCD,Variable Qualifier,,MedDRA,17,Derived,,,,,,,,,,,,,,,,,,,,,,,,,,,,

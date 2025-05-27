@@ -1,8 +1,8 @@
 #' Name: AE domain
 #'
 #' Label: R program to create AE Domain
-#' 
-#' Input 
+#'
+#' Input
 #' raw data: pharmaverseraw::ae_raw
 #' study_controlled_terminology : sdtm_ct.csv
 #' dm domain : pharmaversesdtm::dm
@@ -15,7 +15,7 @@ library(dplyr)
 study_ct <- read.csv("./Part 1 - SDTM/sdtm-specs/sdtm_ct.csv")
 
 # Read in raw data
-ae_raw <- pharmaverseraw::ae_raw 
+ae_raw <- pharmaverseraw::ae_raw
 
 ae_raw <- admiral::convert_blanks_to_na(ae_raw)
 
@@ -73,6 +73,8 @@ ae <-
     raw_dat = ae_raw,
     raw_var = "IT.AEACN",
     tgt_var = "AEACN",
+    ct_spec = study_ct,
+    ct_clst = "C66767",
     id_vars = oak_id_vars()
   ) %>%
   # Map AEREL using assign_ct, raw_var=IT.AEREL, tgt_var=AEREL

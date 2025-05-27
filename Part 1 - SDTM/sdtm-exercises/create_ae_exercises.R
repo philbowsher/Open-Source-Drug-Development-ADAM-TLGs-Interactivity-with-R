@@ -1,8 +1,8 @@
 #' Name: AE domain
 #'
 #' Label: R program to create AE Domain
-#' 
-#' Input 
+#'
+#' Input
 #' raw data: pharmaverseraw::ae_raw
 #' study_controlled_terminology : sdtm_ct.csv
 #' dm domain : pharmaversesdtm::dm
@@ -22,8 +22,8 @@ ae_raw <- admiral::convert_blanks_to_na(ae_raw)
 # Derive oak_id_vars
 ae_raw <- ae_raw %>%
   generate_oak_id_vars(
-    pat_var = ,
-    raw_src = 
+    # pat_var = ,
+    # raw_src =
   )
 
 # Read in DM domain to derive study day
@@ -57,7 +57,7 @@ ae <-
   #   tgt_var = ,
   #   ct_spec = ,
   #   ct_clst = ,
-  #   id_vars = 
+  #   id_vars =
   # )  %>%
   # Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER
   # assign_ct(
@@ -66,14 +66,16 @@ ae <-
   #   tgt_var = ,
   #   ct_spec = ,
   #   ct_clst = ,
-  #   id_vars = 
+  #   id_vars =
   # ) %>%
-  # Map AEACN using assign_no_ct, raw_var=IT.AEACN, tgt_var=AEACN
+  # Map AEACN using assign_ct, raw_var=IT.AEACN, tgt_var=AEACN
   # assign_no_ct(
   #   raw_dat = ,
   #   raw_var = ,
   #   tgt_var = ,
-  #   id_vars = 
+  #   ct_spec = ,
+  #   ct_clst = ,
+  #   id_vars =
   # ) %>%
   # Map AEREL using assign_ct, raw_var=IT.AEREL, tgt_var=AEREL
   # User-added codelist is in the ct,
@@ -83,7 +85,7 @@ ae <-
   #   tgt_var = ,
   #   ct_spec = ,
   #   ct_clst = ,
-  #   id_vars = 
+  #   id_vars =
   # ) %>%
   # Map AESCAN using assign_ct, raw_var=AESCAN, tgt_var=AESCAN
   # assign_ct(
@@ -92,7 +94,7 @@ ae <-
   #   tgt_var = ,
   #   ct_spec = ,
   #   ct_clst = ,
-  #   id_vars = 
+  #   id_vars =
   # ) %>%
   # Map AESCNO using assign_ct, raw_var=AESCNO, tgt_var=AESCNO
   assign_ct(
@@ -153,7 +155,7 @@ ae <-
   #   raw_dat = ,
   #   raw_var = ,
   #   tgt_var = ,
-  #   raw_fmt = 
+  #   raw_fmt =
   # ) %>%
   # Map AESTDTC using assign_datetime, raw_var=IT.AESTDAT
   # assign_datetime(
@@ -196,14 +198,14 @@ ae <-
   #   dm_domain = dm,
   #   tgdt = ,
   #   refdt = ,
-  #   study_day_var = 
+  #   study_day_var =
   # ) %>%
   # derive_study_day(
   #   sdtm_in = .,
   #   dm_domain = dm,
   #   tgdt = ,
   #   refdt = ,
-  #   study_day_var = 
+  #   study_day_var =
   # ) %>%
   select("STUDYID", "DOMAIN", "USUBJID", "AESEQ", "AETERM", "AELLT", "AELLTCD", "AEDECOD", "AEPTCD", "AEHLT", "AEHLTCD", "AEHLGT",
          "AEHLGTCD", "AEBODSYS", "AEBDSYCD", "AESOC", "AESOCCD", "AESEV", "AESER", "AEACN", "AEREL", "AEOUT", "AESCAN", "AESCONG", "AESDISAB",
