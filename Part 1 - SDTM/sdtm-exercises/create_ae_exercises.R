@@ -50,7 +50,7 @@ ae <-
     ct_clst = "C66768",
     id_vars = oak_id_vars()
   ) %>%
-  # Map AESEV using assign_no_ct, raw_var=IT.AESEV, tgt_var=AESEV
+  # Map AESEV using assign_ct, raw_var=IT.AESEV, tgt_var=AESEV
   # assign_ct(
   #   raw_dat = ,
   #   raw_var = ,
@@ -59,7 +59,7 @@ ae <-
   #   ct_clst = ,
   #   id_vars =
   # )  %>%
-  # Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER
+  # Map AESER using assign_ct, raw_var=IT.AESER, tgt_var=AESER
   # assign_ct(
   #   raw_dat = ,
   #   raw_var = ,
@@ -69,7 +69,7 @@ ae <-
   #   id_vars =
   # ) %>%
   # Map AEACN using assign_ct, raw_var=IT.AEACN, tgt_var=AEACN
-  # assign_no_ct(
+  # assign_ct(
   #   raw_dat = ,
   #   raw_var = ,
   #   tgt_var = ,
