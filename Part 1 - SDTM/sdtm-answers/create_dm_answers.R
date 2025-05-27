@@ -45,6 +45,16 @@ dm_raw <- dm_raw %>%
   )
 
 # Create reference dates configuration file
+# Data frame which has the details of the variables to be used for the calculation of reference dates. 
+# Should have columns listed below: 
+#
+# raw_dataset_name : Name of the raw dataset. 
+# date_var : Date variable name from the raw dataset. 
+# time_var : Time variable name from the raw dataset. 
+# dformat : Format of the date collected in raw data. 
+# tformat: Format of the time collected in raw data. 
+# sdtm_var_name : Reference variable name.
+
 ref_date_conf_df <- tibble::tribble(
   ~raw_dataset_name, ~date_var,     ~time_var,      ~dformat,      ~tformat, ~sdtm_var_name,
   "ex_raw",       "IT.ECSTDAT", NA_character_, "dd-mmm-yyyy", NA_character_,     "RFXSTDTC",
@@ -225,6 +235,7 @@ dm <-
                       dm_raw = dm_raw
                     )
   ) %>%
+  # Derive DMDY
   derive_study_day(
     sdtm_in = .,
     dm_domain = .,

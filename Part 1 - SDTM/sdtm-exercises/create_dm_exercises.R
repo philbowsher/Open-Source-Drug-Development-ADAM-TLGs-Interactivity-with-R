@@ -45,6 +45,16 @@ dm_raw <- dm_raw %>%
   )
 
 # Create reference dates configuration file
+# Data frame which has the details of the variables to be used for the calculation of reference dates. 
+# Should have columns listed below: 
+#
+# raw_dataset_name : Name of the raw dataset. 
+# date_var : Date variable name from the raw dataset. 
+# time_var : Time variable name from the raw dataset. 
+# dformat : Format of the date collected in raw data. 
+# tformat: Format of the time collected in raw data. 
+# sdtm_var_name : Reference variable name.
+
 ref_date_conf_df <- tibble::tribble(
   ~raw_dataset_name, ~date_var,     ~time_var,      ~dformat,      ~tformat, ~sdtm_var_name,
   "ex_raw",       "IT.ECSTDAT", NA_character_, "dd-mmm-yyyy", NA_character_,     "RFXSTDTC",
@@ -171,38 +181,38 @@ dm <-
                     )
   ) %>%
   # Derive RFENDTC using oak_cal_ref_dates
-  oak_cal_ref_dates(ds_in = .,
-                    der_var = "RFENDTC",
-                    min_max = "max",
-                    ref_date_config_df = ref_date_conf_df,
-                    raw_source = list(
-                      ex_raw = ex_raw,
-                      ds_raw = ds_raw,
-                      dm_raw = dm_raw
-                    )
-  ) %>%
+  # oak_cal_ref_dates(ds_in = .,
+  #                   der_var = ,
+  #                   min_max = ,
+  #                   ref_date_config_df = ref_date_conf_df,
+  #                   raw_source = list(
+  #                     ex_raw = ex_raw,
+  #                     ds_raw = ds_raw,
+  #                     dm_raw = dm_raw
+  #                   )
+  # ) %>%
   # Derive RFXSTDTC using oak_cal_ref_dates
-  oak_cal_ref_dates(ds_in = .,
-                    der_var = "RFXSTDTC",
-                    min_max = "min",
-                    ref_date_config_df = ref_date_conf_df,
-                    raw_source = list(
-                      ex_raw = ex_raw,
-                      ds_raw = ds_raw,
-                      dm_raw = dm_raw
-                    )
-  ) %>%
+  # oak_cal_ref_dates(ds_in = .,
+  #                   der_var = ,
+  #                   min_max = ,
+  #                   ref_date_config_df = ref_date_conf_df,
+  #                   raw_source = list(
+  #                     ex_raw = ex_raw,
+  #                     ds_raw = ds_raw,
+  #                     dm_raw = dm_raw
+  #                   )
+  # ) %>%
   # Derive RFXENDTC using oak_cal_ref_dates
-  oak_cal_ref_dates(ds_in = .,
-                    der_var = "RFXENDTC",
-                    min_max = "max",
-                    ref_date_config_df = ref_date_conf_df,
-                    raw_source = list(
-                      ex_raw = ex_raw,
-                      ds_raw = ds_raw,
-                      dm_raw = dm_raw
-                    )
-  ) %>%
+  # oak_cal_ref_dates(ds_in = .,
+  #                   der_var = ,
+  #                   min_max = ,
+  #                   ref_date_config_df = ref_date_conf_df,
+  #                   raw_source = list(
+  #                     ex_raw = ex_raw,
+  #                     ds_raw = ds_raw,
+  #                     dm_raw = dm_raw
+  #                   )
+  # ) %>%
   # Derive RFICDTC using oak_cal_ref_dates
   oak_cal_ref_dates(ds_in = .,
                     der_var = "RFICDTC",
@@ -225,13 +235,14 @@ dm <-
                       dm_raw = dm_raw
                     )
   ) %>%
-  derive_study_day(
-    sdtm_in = .,
-    dm_domain = .,
-    tgdt = "DMDTC",
-    refdt = "RFXSTDTC",
-    study_day_var = "DMDY"
-  ) %>%
+  # Derive DMDY
+  # derive_study_day(
+  #   sdtm_in = .,
+  #   dm_domain = .,
+  #   tgdt = ,
+  #   refdt = ,
+  #   study_day_var = 
+  # ) %>%
   select(
     "STUDYID", "DOMAIN", "USUBJID", "SUBJID",  "RFSTDTC", "RFENDTC", "RFXSTDTC", "RFXENDTC", "RFICDTC", "RFPENDTC", 
     "DTHDTC", "DTHFL", "AGE", "AGEU", "SEX", "RACE", "ETHNIC", "ARMCD", "ARM", "ACTARMCD", "ACTARM",
