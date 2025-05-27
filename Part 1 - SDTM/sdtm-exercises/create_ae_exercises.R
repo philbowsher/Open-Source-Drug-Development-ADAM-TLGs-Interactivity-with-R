@@ -50,15 +50,37 @@ ae <-
     ct_clst = "C66768",
     id_vars = oak_id_vars()
   ) %>%
-  # Map AESEV using assign_ct, raw_var=IT.AESEV, tgt_var=AESEV
-  # assign_ct(
-  #   raw_dat = ,
-  #   raw_var = ,
-  #   tgt_var = ,
-  #   ct_spec = ,
-  #   ct_clst = ,
-  #   id_vars =
-  # )  %>%
+  # Map AESEV using hardcode_ct and condition_add, raw_var=IT.AESEV, tgt_var=AESEV
+  # if "Mild Adverse Event" then AE.AESEV = "MILD" 
+  # else if "Moderate Adverse Event" then AE.AESEV = "MODERATE" , 
+  # else if "Severe Adverse Event" then AE.AESEV = "SEVERE"
+  hardcode_ct(
+    raw_dat = condition_add(ae_raw, IT.AESEV == "Mild Adverse Event"),
+    raw_var = "IT.AESEV",
+    tgt_var = "AESEV",
+    tgt_val = "MILD",
+    ct_spec = study_ct,
+    ct_clst = "C66769",
+    id_vars = oak_id_vars()
+  )  %>%
+  hardcode_ct(
+    raw_dat = condition_add(ae_raw, IT.AESEV == "Moderate Adverse Event"),
+    raw_var = "IT.AESEV",
+    tgt_var = "AESEV",
+    tgt_val = "MODERATE",
+    ct_spec = study_ct,
+    ct_clst = "C66769",
+    id_vars = oak_id_vars()
+  )  %>%
+  hardcode_ct(
+    raw_dat = condition_add(ae_raw, IT.AESEV == "Severe Adverse Event"),
+    raw_var = "IT.AESEV",
+    tgt_var = "AESEV",
+    tgt_val = "SEVERE",
+    ct_spec = study_ct,
+    ct_clst = "C66769",
+    id_vars = oak_id_vars()
+  )  %>%
   # Map AESER using assign_ct, raw_var=IT.AESER, tgt_var=AESER
   # assign_ct(
   #   raw_dat = ,
@@ -115,14 +137,21 @@ ae <-
     id_vars = oak_id_vars()
   ) %>%
   # Map AESDTH using assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH
-  assign_ct(
-    raw_dat = ae_raw,
+  # If Yes then AESDTH = Y else Not submitted
+  hardcode_no_ct(
+    raw_dat = condition_add(ae_raw, IT.AESDTH == "Yes"),
     raw_var = "IT.AESDTH",
     tgt_var = "AESDTH",
-    ct_spec = study_ct,
-    ct_clst = "C66742",
+    tgt_val = "Y",
     id_vars = oak_id_vars()
   ) %>%
+  # hardcode_no_ct(
+  #   raw_dat = ,
+  #   raw_var = ,
+  #   tgt_var = ,
+  #   tgt_val = ,
+  #   id_vars = oak_id_vars()
+  # ) %>%
   # Map AESHOSP using assign_ct, raw_var=IT.AESHOSP, tgt_var=AESHOSP
   assign_ct(
     raw_dat = ae_raw,
