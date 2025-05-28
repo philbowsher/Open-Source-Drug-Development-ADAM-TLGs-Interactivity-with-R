@@ -61,6 +61,13 @@ ae <-
     tgt_val = "Y",
     id_vars = oak_id_vars()
   ) %>%
+  hardcode_no_ct(
+    raw_dat = condition_add(ae_raw, IT.AESDTH != "Yes"),
+    raw_var = "IT.AESDTH",
+    tgt_var = "AESDTH",
+    tgt_val = "Not Submitted",
+    id_vars = oak_id_vars()
+  ) %>%
   # Map AESEV using hardcode_ct and condition_add, raw_var=IT.AESEV, tgt_var=AESEV
   # if "Mild Adverse Event" then AE.AESEV = "MILD" 
   # else if "Moderate Adverse Event" then AE.AESEV = "MODERATE" , 
@@ -161,13 +168,6 @@ ae <-
     tgt_var = "AESDISAB",
     ct_spec = study_ct,
     ct_clst = "C66742",
-    id_vars = oak_id_vars()
-  ) %>%
-  hardcode_no_ct(
-    raw_dat = condition_add(ae_raw, IT.AESDTH != "Yes"),
-    raw_var = "IT.AESDTH",
-    tgt_var = "AESDTH",
-    tgt_val = "Not Submitted",
     id_vars = oak_id_vars()
   ) %>%
   # Map AESHOSP using assign_ct, raw_var=IT.AESHOSP, tgt_var=AESHOSP
