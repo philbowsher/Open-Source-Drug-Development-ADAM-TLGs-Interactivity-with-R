@@ -76,7 +76,7 @@ dm <-
     tgt_var = "SUBJID",
     id_vars = oak_id_vars()
   ) %>%
-  dplyr::mutate(SUBJID = substr(dm_raw$PATNUM, 5, 8)) %>%
+  #dplyr::mutate(SUBJID = substr(dm_raw$PATNUM, 5, 8)) %>%
   # Map AGE using assign_no_ct
   assign_no_ct(
     raw_dat = dm_raw,
