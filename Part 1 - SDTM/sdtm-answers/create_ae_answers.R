@@ -52,7 +52,7 @@ ae <-
     ct_clst = "C66768",
     id_vars = oak_id_vars()
   ) %>%
-  # Map AESDTH using assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH
+  # Map AESDTH using hardcode_no_ct and condition_add, raw_var=IT.AESDTH, tgt_var=AESDTH
   # If Yes then AESDTH = Y else Not submitted
   hardcode_no_ct(
     raw_dat = condition_add(ae_raw, IT.AESDTH == "Yes"),
