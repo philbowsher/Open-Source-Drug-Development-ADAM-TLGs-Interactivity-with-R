@@ -6,7 +6,9 @@
 #' raw data: pharmaverseraw::ae_raw
 #' study_controlled_terminology : sdtm_ct.csv
 #' dm domain : pharmaversesdtm::dm
-#'
+#' SDTM aCRF - 
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf
+#' 
 library(sdtm.oak)
 library(dplyr)
 

@@ -186,7 +186,7 @@ dm <-
   # character format. Usually equivalent to date/time when subject was first exposed
   # to study treatment. So as specified in the reference date configuration file, 
   # we need to calculate the minimum date of  the `IT.ECSTDAT` for each subject 
-  #from the `ec_raw` dataset. Therefore, in `min_max` parameter, "min" is selected 
+  # from the `ec_raw` dataset. Therefore, in `min_max` parameter, "min" is selected 
   # for the calculation.
   
   # Users can pass all applicable raw datasets to raw_source parameter

@@ -7,6 +7,10 @@
 #' pharmaverseraw::dm_raw
 #' pharmaverseraw::ec_raw
 #' pharmaverseraw::ds_raw
+#' SDTM aCRF - 
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Demographics_aCRF.pdf
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Exposure_as_collected_aCRF.pdf
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Subject_Disposition_aCRF.pdf 
 #' 
 #' study_controlled_terminology : sdtm_ct.csv
 #'
@@ -178,6 +182,14 @@ dm <-
          COUNTRY = dm_raw$COUNTRY,
          DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
   # Derive RFSTDTC using oak_cal_ref_dates
+  # Variable `RFSTDTC` is the reference Start Date/time for the subject in ISO 8601 
+  # character format. Usually equivalent to date/time when subject was first exposed
+  # to study treatment. So as specified in the reference date configuration file, 
+  # we need to calculate the minimum date of  the `IT.ECSTDAT` for each subject 
+  # from the `ec_raw` dataset. Therefore, in `min_max` parameter, "min" is selected 
+  # for the calculation.
+  
+  # Users can pass all applicable raw datasets to raw_source parameter
   oak_cal_ref_dates(ds_in = .,
                     der_var = "RFSTDTC",
                     min_max = "min",
@@ -189,16 +201,20 @@ dm <-
                     )
   ) %>%
   # Derive RFENDTC using oak_cal_ref_dates
-  # oak_cal_ref_dates(ds_in = .,
-  #                   der_var = ,
-  #                   min_max = ,
-  #                   ref_date_config_df = ref_date_conf_df,
-  #                   raw_source = list(
-  #                     ex_raw = ex_raw,
-  #                     ds_raw = ds_raw,
-  #                     dm_raw = dm_raw
-  #                   )
-  # ) %>%
+  # Equivalent to the date/time when subject was determined to have ended the trial,
+  # and often equivalent to date/time of last exposure to study treatment. we need 
+  # to calculate the  maximum date of the `IT.ECENDAT` for each subject from the 
+  # `ec_raw` dataset. Therefore, in `min_max` parameter, "max" is selected for the calculation.
+  
+  # Users can pass just pass the one applicable raw datasets to raw_source parameter
+  oak_cal_ref_dates(ds_in = .,
+                    der_var = "RFENDTC",
+                    min_max = "max",
+                    ref_date_config_df = ref_date_conf_df,
+                    raw_source = list(
+                      ex_raw = ex_raw
+                    )
+  ) %>%
   # Derive RFXSTDTC using oak_cal_ref_dates
   # oak_cal_ref_dates(ds_in = .,
   #                   der_var = ,
