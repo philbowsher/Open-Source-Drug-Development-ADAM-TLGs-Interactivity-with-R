@@ -7,6 +7,10 @@
 #' pharmaverseraw::dm_raw
 #' pharmaverseraw::ec_raw
 #' pharmaverseraw::ds_raw
+#' SDTM aCRF - 
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Demographics_aCRF.pdf
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Exposure_as_collected_aCRF.pdf
+#' https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Subject_Disposition_aCRF.pdf
 #' 
 #' study_controlled_terminology : sdtm_ct.csv
 #'
@@ -178,6 +182,7 @@ dm <-
          COUNTRY = dm_raw$COUNTRY,
          DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
   # Derive RFSTDTC using oak_cal_ref_dates
+  # Users can pass all applicable raw datasets to raw_source parameter
   oak_cal_ref_dates(ds_in = .,
                     der_var = "RFSTDTC",
                     min_max = "min",
@@ -189,14 +194,13 @@ dm <-
                     )
   ) %>%
   # Derive RFENDTC using oak_cal_ref_dates
+  # Users can pass just pass the one applicable raw datasets to raw_source parameter
   oak_cal_ref_dates(ds_in = .,
                     der_var = "RFENDTC",
                     min_max = "max",
                     ref_date_config_df = ref_date_conf_df,
                     raw_source = list(
-                      ex_raw = ex_raw,
-                      ds_raw = ds_raw,
-                      dm_raw = dm_raw
+                      ex_raw = ex_raw
                     )
   ) %>%
   # Derive RFXSTDTC using oak_cal_ref_dates
