@@ -50,6 +50,15 @@ ae <-
     ct_clst = "C66768",
     id_vars = oak_id_vars()
   ) %>%
+  # Map AESDTH using assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH
+  # If Yes then AESDTH = Y else Not submitted
+  hardcode_no_ct(
+    raw_dat = condition_add(ae_raw, IT.AESDTH == "Yes"),
+    raw_var = "IT.AESDTH",
+    tgt_var = "AESDTH",
+    tgt_val = "Y",
+    id_vars = oak_id_vars()
+  ) %>%
   # Map AESEV using hardcode_ct and condition_add, raw_var=IT.AESEV, tgt_var=AESEV
   # if "Mild Adverse Event" then AE.AESEV = "MILD" 
   # else if "Moderate Adverse Event" then AE.AESEV = "MODERATE" , 
@@ -81,6 +90,22 @@ ae <-
     ct_clst = "C66769",
     id_vars = oak_id_vars()
   )  %>%
+  # Map AESTDTC using assign_datetime, raw_var=IT.AESTDAT
+  assign_datetime(
+    raw_dat = ae_raw,
+    raw_var = "IT.AESTDAT",
+    tgt_var = "AESTDTC",
+    raw_fmt = c(list(c("m/d/y", "yyyy"))),
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map AEENDTC using assign_datetime, raw_var=IT.AEENDAT
+  assign_datetime(
+    raw_dat = ae_raw,
+    raw_var = "IT.AEENDAT",
+    tgt_var = "AEENDTC",
+    raw_fmt = c("m/d/y"),
+    id_vars = oak_id_vars()
+  ) %>%
   # Map AESER using assign_ct, raw_var=IT.AESER, tgt_var=AESER
   assign_ct(
     raw_dat = ae_raw,
@@ -136,15 +161,6 @@ ae <-
     ct_clst = "C66742",
     id_vars = oak_id_vars()
   ) %>%
-  # Map AESDTH using assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH
-  # If Yes then AESDTH = Y else Not submitted
-  hardcode_no_ct(
-    raw_dat = condition_add(ae_raw, IT.AESDTH == "Yes"),
-    raw_var = "IT.AESDTH",
-    tgt_var = "AESDTH",
-    tgt_val = "Y",
-    id_vars = oak_id_vars()
-  ) %>%
   hardcode_no_ct(
     raw_dat = condition_add(ae_raw, IT.AESDTH != "Yes"),
     raw_var = "IT.AESDTH",
@@ -186,38 +202,83 @@ ae <-
     tgt_var = "AEDTC",
     raw_fmt = c("m/d/y")
   ) %>%
-  # Map AESTDTC using assign_datetime, raw_var=IT.AESTDAT
-  assign_datetime(
+  # Map all coded terms using assign_no_ct algorithm
+  assign_no_ct(
     raw_dat = ae_raw,
-    raw_var = "IT.AESTDAT",
-    tgt_var = "AESTDTC",
-    raw_fmt = c(list(c("m/d/y", "yyyy"))),
+    raw_var = "AELLT",
+    tgt_var = "AELLT",
     id_vars = oak_id_vars()
   ) %>%
-  # Map AEENDTC using assign_datetime, raw_var=IT.AEENDAT
-  assign_datetime(
+  assign_no_ct(
     raw_dat = ae_raw,
-    raw_var = "IT.AEENDAT",
-    tgt_var = "AEENDTC",
-    raw_fmt = c("m/d/y"),
+    raw_var = "AELLTCD",
+    tgt_var = "AELLTCD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEDECOD",
+    tgt_var = "AEDECOD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEPTCD",
+    tgt_var = "AEPTCD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEHLT",
+    tgt_var = "AEHLT",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEHLTCD",
+    tgt_var = "AEHLTCD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEHLGT",
+    tgt_var = "AEHLGT",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEHLGTCD",
+    tgt_var = "AEHLGTCD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEBODSYS",
+    tgt_var = "AEBODSYS",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AEBDSYCD",
+    tgt_var = "AEBDSYCD",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AESOC",
+    tgt_var = "AESOC",
+    id_vars = oak_id_vars()
+  ) %>%
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "AESOCCD",
+    tgt_var = "AESOCCD",
     id_vars = oak_id_vars()
   ) %>%
   dplyr::mutate(
-    STUDYID = ae_raw$STUDY,
+    STUDYID = unique(ae_raw$STUDY),
     DOMAIN = "AE",
     USUBJID = paste0("01-", ae_raw$PATNUM),
-    AELLT = ae_raw$AELLT,
-    AELLTCD = ae_raw$AELLTCD,
-    AEDECOD = ae_raw$AEDECOD,
-    AEPTCD = ae_raw$AEPTCD,
-    AEHLT = ae_raw$AEHLT,
-    AEHLTCD = ae_raw$AEHLTCD,
-    AEHLGT = ae_raw$AEHLGT,
-    AEHLGTCD = ae_raw$AEHLGTCD,
-    AEBODSYS = ae_raw$AEBODSYS,
-    AEBDSYCD = ae_raw$AEBDSYCD,
-    AESOC = ae_raw$AESOC,
-    AESOCCD = ae_raw$AESOCCD,
     AETERM = toupper(AETERM)
   ) %>%
   derive_seq(tgt_var = "AESEQ",
