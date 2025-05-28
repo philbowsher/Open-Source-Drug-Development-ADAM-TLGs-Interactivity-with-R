@@ -45,7 +45,8 @@ dm_raw <- dm_raw %>%
   )
 
 # Create reference dates configuration file
-# Data frame which has the details of the variables to be used for the calculation of reference dates. 
+# Data frame which has the details of the variables to be used for the 
+# calculation of reference dates. 
 # Should have columns listed below: 
 #
 # raw_dataset_name : Name of the raw dataset. 
@@ -67,7 +68,15 @@ ref_date_conf_df <- tibble::tribble(
 )
 
 # Create DM domain.
-dm <-
+dm <- 
+  # Map Topic variable SUBJID using assign_no_ct
+  assign_no_ct(
+    raw_dat = dm_raw,
+    raw_var = "PATNUM",
+    tgt_var = "SUBJID",
+    id_vars = oak_id_vars()
+  ) %>%
+  dplyr::mutate(SUBJID = substr(dm_raw$PATNUM, 5, 8)) %>%
   # Map AGE using assign_no_ct
   assign_no_ct(
     raw_dat = dm_raw,
@@ -165,7 +174,6 @@ dm <-
   ) %>%
   mutate(STUDYID = dm_raw$STUDY,
          DOMAIN = "DM",
-         SUBJID = substr(dm_raw$PATNUM, 5, 8),
          USUBJID = paste0("01-", dm_raw$PATNUM),
          COUNTRY = dm_raw$COUNTRY,
          DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
