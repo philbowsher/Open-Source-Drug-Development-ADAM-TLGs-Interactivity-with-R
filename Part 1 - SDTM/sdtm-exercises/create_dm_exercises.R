@@ -157,17 +157,6 @@ dm <-
     tgt_var = "ACTARMCD",
     id_vars = oak_id_vars()
   ) %>%
-  # Map DTHDTC using oak_cal_ref_dates
-  oak_cal_ref_dates(ds_in = .,
-                    der_var = "DTHDTC",
-                    min_max = "min",
-                    ref_date_config_df = ref_date_conf_df,
-                    raw_source = list(
-                      ex_raw = ex_raw,
-                      ds_raw = ds_raw,
-                      dm_raw = dm_raw
-                    )
-  ) %>%
   # Map DMDTC using assign_datetime
   assign_datetime(
     raw_dat = dm_raw,
@@ -179,8 +168,7 @@ dm <-
   mutate(STUDYID = dm_raw$STUDY,
          DOMAIN = "DM",
          USUBJID = paste0("01-", dm_raw$PATNUM),
-         COUNTRY = dm_raw$COUNTRY,
-         DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
+         COUNTRY = dm_raw$COUNTRY) %>%
   # Derive RFSTDTC using oak_cal_ref_dates
   # Variable `RFSTDTC` is the reference Start Date/time for the subject in ISO 8601 
   # character format. Usually equivalent to date/time when subject was first exposed
@@ -259,6 +247,18 @@ dm <-
                       dm_raw = dm_raw
                     )
   ) %>%
+  # Map DTHDTC using oak_cal_ref_dates
+  oak_cal_ref_dates(ds_in = .,
+                    der_var = "DTHDTC",
+                    min_max = "min",
+                    ref_date_config_df = ref_date_conf_df,
+                    raw_source = list(
+                      ex_raw = ex_raw,
+                      ds_raw = ds_raw,
+                      dm_raw = dm_raw
+                    )
+  ) %>%
+  dplyr::mutate(DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
   # Derive DMDY
   # derive_study_day(
   #   sdtm_in = .,
