@@ -80,7 +80,6 @@ dm <-
     tgt_var = "SUBJID",
     id_vars = oak_id_vars()
   ) %>%
-  #dplyr::mutate(SUBJID = substr(dm_raw$PATNUM, 5, 8)) %>%
   # Map AGE using assign_no_ct
   assign_no_ct(
     raw_dat = dm_raw,
@@ -258,7 +257,8 @@ dm <-
                       dm_raw = dm_raw
                     )
   ) %>%
-  dplyr::mutate(DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y")) %>%
+  dplyr::mutate(DTHFL = dplyr::if_else(is.na(DTHDTC), NA_character_, "Y"),
+                SITEID = substr(SUBJID, 1, 3)) %>%
   # Derive DMDY
   derive_study_day(
     sdtm_in = .,
@@ -269,7 +269,7 @@ dm <-
   ) %>%
   select(
     "STUDYID", "DOMAIN", "USUBJID", "SUBJID",  "RFSTDTC", "RFENDTC", "RFXSTDTC", "RFXENDTC", "RFICDTC", "RFPENDTC", 
-    "DTHDTC", "DTHFL", "AGE", "AGEU", "SEX", "RACE", "ETHNIC", "ARMCD", "ARM", "ACTARMCD", "ACTARM",
+    "DTHDTC", "DTHFL", "SITEID", "AGE", "AGEU", "SEX", "RACE", "ETHNIC", "ARMCD", "ARM", "ACTARMCD", "ACTARM",
     "COUNTRY", "DMDTC", "DMDY"
   )
 
